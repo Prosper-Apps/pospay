@@ -22,9 +22,9 @@ A huge thanks to Aisenyi Malisa for all of his hard work creating this!
 
 From the directory of your bench, run the following commands:
 
-> bench get-app https://github.com/aisenyi/pasigono.git
+> bench get-app https://github.com/bvisible/pospay.git
 >
-> bench --site site.name install-app pasigono
+> bench --site prod.local install-app pasigono
 
 These options will be added to the bottom of the POS Profile:
 
