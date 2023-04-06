@@ -153,7 +153,7 @@ erpnext.PointOfSale.StripeTerminal = function(){
 			};
 			items.push(item);
 		});
-		await terminal.clearReaderDisplay();
+		//await terminal.clearReaderDisplay();
 		terminal.setReaderDisplay({
 			type: 'cart',
 			cart: {

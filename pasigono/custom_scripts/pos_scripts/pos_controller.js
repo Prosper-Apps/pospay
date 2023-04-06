@@ -284,6 +284,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller{
 				frappe.model.clear_doc(doctype, name);
 				this.update_cart_html(current_item, true);
 				this.item_details.toggle_item_details_section(null);
+				if(window.enable_stripe_terminal == 1){
+					this.stripe.display_details(this);
+				}
 				frappe.dom.unfreeze();
 			})
 			.catch(e => console.log(e));
