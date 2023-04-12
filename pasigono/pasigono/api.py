@@ -34,8 +34,17 @@ def payment_intent_creation(sales_invoice):
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
 		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
 		#The amount is multiplied by 100 because the api acceps payments in cents. Had to do around to two decimal places then convert to integer
+		#////
+		stripe_payment = frappe.db.get_value("POS Profile", sales_invoice.get("pos_profile"), "stripe_mode_of_payment")
+		frappe.log_error(str(stripe_payment))
+		payment_amount = 0
+		for payment in sales_invoice.get("payments"):
+			if payment.get("mode_of_payment") == stripe_payment:
+				payment_amount = payment.get("amount")
+				break
+		#////
 		payment_intent = stripe.PaymentIntent.create(
-		  amount = int(round(grand_total, 2)*100),
+		  amount = int(payment_amount * 100), #////int(round(grand_total, 2)*100),
 		  currency= currency.lower(),
 		  payment_method_types = ['card_present'],
 		  capture_method = 'manual',

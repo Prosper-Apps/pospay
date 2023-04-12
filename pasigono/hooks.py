@@ -29,7 +29,7 @@ app_include_js = ["form-raw.bundle.js", "https://js.stripe.com/terminal/v1/",
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
-page_js = {"point-of-sale" : "custom_scripts/point_of_sale/point_of_sale.js"}
+#page_js = {"point-of-sale" : "custom_scripts/point_of_sale/point_of_sale.js"} #////commented
 
 # include js in doctype views
 doctype_js = {"POS Profile" : "custom_scripts/pos_profile/pos_profile.js"}
@@ -126,10 +126,10 @@ doc_events = {
 # Overriding Methods
 # ------------------------------
 #
-override_whitelisted_methods = {
+#override_whitelisted_methods = { #//// commented
 	#"frappe.desk.doctype.event.event.get_events": "stripe_terminal.event.get_events"
-	"erpnext.accounts.doctype.pos_invoice.pos_invoice.make_sales_return": "pasigono.custom_scripts.controllers.sales_and_purchase_return.make_sales_return"
-}
+	#"erpnext.accounts.doctype.pos_invoice.pos_invoice.make_sales_return": "pasigono.custom_scripts.controllers.sales_and_purchase_return.make_sales_return" #//// commented
+#} #//// commented
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
