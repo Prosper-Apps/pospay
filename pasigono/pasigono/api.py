@@ -44,14 +44,14 @@ def payment_intent_creation(sales_invoice):
 				break
 		#////
 		payment_intent = stripe.PaymentIntent.create(
-		  amount = int(payment_amount * 100), #////int(round(grand_total, 2)*100),
-		  currency= currency.lower(),
-		  payment_method_types = ['card_present'],
-		  capture_method = 'manual',
+			amount = int(payment_amount * 100), #////int(round(grand_total, 2)*100),
+			currency= currency.lower(),
+			payment_method_types = ['card_present'],
+			capture_method = 'manual',
 		)
-		
+
 		return payment_intent
-		
+
 @frappe.whitelist(allow_guest=True)
 def cancel_payment_intent(payment_intent_id,sales_invoice_id=None):
 	stripe_settings = frappe.db.get_all("Stripe Settings")
@@ -59,10 +59,10 @@ def cancel_payment_intent(payment_intent_id,sales_invoice_id=None):
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
 		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
 		intent = stripe.PaymentIntent.cancel(
-		  payment_intent_id
+			payment_intent_id
 		)
 		return intent
-		
+
 @frappe.whitelist(allow_guest=True)
 def capture_payment_intent(payment_intent_id,sales_invoice_id=None):
 	stripe_settings = frappe.db.get_all("Stripe Settings")
@@ -70,7 +70,7 @@ def capture_payment_intent(payment_intent_id,sales_invoice_id=None):
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
 		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
 		intent = stripe.PaymentIntent.capture(
-		  payment_intent_id
+			payment_intent_id
 		)
 		return intent
 
@@ -83,11 +83,11 @@ def update_payment_intent(payment_intent_id,sales_invoice_id):
 			gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
 			stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
 			intent = stripe.PaymentIntent.modify(
-			  payment_intent_id,
-			  metadata = {"POS Invoice":sales_invoice_id,"Customer":sales_invoice.customer}
+				payment_intent_id,
+				metadata = {"POS Invoice":sales_invoice_id,"Customer":sales_invoice.customer}
 			)
 			return intent
-			
+
 @frappe.whitelist(allow_guest=True)
 def refund_payment(payment_intent_id, amount):
 	refund = stripe.Refund.create(

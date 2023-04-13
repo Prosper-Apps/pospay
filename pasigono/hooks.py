@@ -15,7 +15,7 @@ app_license = "MIT"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/pasigono/css/pasigono.css"
 app_include_js = ["form-raw.bundle.js", "https://js.stripe.com/terminal/v1/",
-					"/assets/pasigono/js/jsrsasign-all-min.js", "pos-mettler-toledo.bundle.js"]
+				  "/assets/pasigono/js/jsrsasign-all-min.js", "pos-mettler-toledo.bundle.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/pasigono/css/pasigono.css"
@@ -127,8 +127,8 @@ doc_events = {
 # ------------------------------
 #
 #override_whitelisted_methods = { #//// commented
-	#"frappe.desk.doctype.event.event.get_events": "stripe_terminal.event.get_events"
-	#"erpnext.accounts.doctype.pos_invoice.pos_invoice.make_sales_return": "pasigono.custom_scripts.controllers.sales_and_purchase_return.make_sales_return" #//// commented
+#"frappe.desk.doctype.event.event.get_events": "stripe_terminal.event.get_events"
+#"erpnext.accounts.doctype.pos_invoice.pos_invoice.make_sales_return": "pasigono.custom_scripts.controllers.sales_and_purchase_return.make_sales_return" #//// commented
 #} #//// commented
 #
 # each overriding function accepts a `data` argument;
