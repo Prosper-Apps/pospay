@@ -1,8 +1,5 @@
 {
 	"js/pos-mettler-toledo.min.js": [
 		"custom_scripts/pos_scripts/pos_mettler_toledo.js"
-	],
-	"js/form-raw.min.js": [
-		"custom_scripts/frappe/form.js"
 	]
 }
