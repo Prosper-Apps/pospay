@@ -14,8 +14,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/pasigono/css/pasigono.css"
-app_include_js = ["https://js.stripe.com/terminal/v1/",
-				  "/assets/pasigono/js/jsrsasign-all-min.js", "pos-mettler-toledo.bundle.js"]
+app_include_js = ["https://js.stripe.com/terminal/v1/", "pos-mettler-toledo.bundle.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/pasigono/css/pasigono.css"
