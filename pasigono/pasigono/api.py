@@ -20,7 +20,7 @@ def get_stripe_terminal_token():
 	stripe_settings = frappe.db.get_all("Stripe Settings")
 	if stripe_settings:
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
-		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
+		stripe.api_key = gateway_settings.get_password('secret_key')
 		connection_token = stripe.terminal.ConnectionToken.create()
 		return connection_token
 
@@ -32,7 +32,7 @@ def payment_intent_creation(sales_invoice):
 		currency = sales_invoice.get("currency")
 		grand_total = sales_invoice.get("grand_total")
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
-		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
+		stripe.api_key = gateway_settings.get_password('secret_key')
 		#The amount is multiplied by 100 because the api acceps payments in cents. Had to do around to two decimal places then convert to integer
 		#////
 		stripe_payment = frappe.db.get_value("POS Profile", sales_invoice.get("pos_profile"), "stripe_mode_of_payment")
@@ -57,7 +57,7 @@ def cancel_payment_intent(payment_intent_id,sales_invoice_id=None):
 	stripe_settings = frappe.db.get_all("Stripe Settings")
 	if stripe_settings:
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
-		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
+		stripe.api_key = gateway_settings.get_password('secret_key')
 		intent = stripe.PaymentIntent.cancel(
 			payment_intent_id
 		)
@@ -68,7 +68,7 @@ def capture_payment_intent(payment_intent_id,sales_invoice_id=None):
 	stripe_settings = frappe.db.get_all("Stripe Settings")
 	if stripe_settings:
 		gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
-		stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
+		stripe.api_key = gateway_settings.get_password('secret_key')
 		intent = stripe.PaymentIntent.capture(
 			payment_intent_id
 		)
@@ -81,7 +81,7 @@ def update_payment_intent(payment_intent_id,sales_invoice_id):
 		sales_invoice = frappe.get_doc("POS Invoice",sales_invoice_id)
 		if stripe_settings:
 			gateway_settings = frappe.get_doc("Stripe Settings",stripe_settings[0].name)
-			stripe.api_key = "sk_test_51JWkM4FQ0DNMdTs2e5AYRQmrELYUShiOrazxeHOBx0EiVWAnDNdwCV63SUBsvg7uuV6nnrK30kW3g2TJsXzyeDSc00G6QdSXli" #gateway_settings.get_password('secret_key')
+			stripe.api_key = gateway_settings.get_password('secret_key')
 			intent = stripe.PaymentIntent.modify(
 				payment_intent_id,
 				metadata = {"POS Invoice":sales_invoice_id,"Customer":sales_invoice.customer}
