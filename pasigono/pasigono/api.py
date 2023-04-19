@@ -36,7 +36,6 @@ def payment_intent_creation(sales_invoice):
 		#The amount is multiplied by 100 because the api acceps payments in cents. Had to do around to two decimal places then convert to integer
 		#////
 		stripe_payment = frappe.db.get_value("POS Profile", sales_invoice.get("pos_profile"), "stripe_mode_of_payment")
-		frappe.log_error(str(stripe_payment))
 		payment_amount = 0
 		for payment in sales_invoice.get("payments"):
 			if payment.get("mode_of_payment") == stripe_payment:
@@ -72,6 +71,10 @@ def capture_payment_intent(payment_intent_id,sales_invoice_id=None):
 		intent = stripe.PaymentIntent.capture(
 			payment_intent_id
 		)
+		if 'charges' not in intent:
+			charges = stripe.Charge.retrieve(intent.latest_charge)
+			if charges:
+				intent.charges = {'data': [charges]}
 		return intent
 
 @frappe.whitelist(allow_guest=True)
